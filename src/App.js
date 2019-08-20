@@ -37,28 +37,28 @@ class App extends Component {
   }
 
   updateFeature = (feature, newValue) => {
-    console.log('update feature ran')
     const selected = Object.assign({}, this.state.selected);
     selected[feature] = newValue;
+    console.log(`update feature ${feature} to ${newValue}:`, selected)
     this.setState({
       selected
     });
   };
 
   render() {
-   return (
+    return (
       <div className="App">
         <header>
           <h1>ELF Computing | Laptops</h1>
         </header>
         <main>
-          <Custom 
+          <Custom
             features={this.props.features}
             USCurrencyFormat={USCurrencyFormat}
             state={this.state}
-            updateFeature={newValue => this.updateFeature(newValue)}
+            updateFeature={this.updateFeature}
           />
-          <Cart 
+          <Cart
             USCurrencyFormat={USCurrencyFormat}
             features={this.props.features}
             state={this.state}
