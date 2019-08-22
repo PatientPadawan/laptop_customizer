@@ -1,52 +1,20 @@
 import React, { Component } from 'react';
-
-// Normalizes string as a slug - a string that is safe to use
-// in both URLs and html attributes
-import slugify from 'slugify';
-
 import './Custom.css';
+import Choices from '../Choices/Choices';
 
 class Custom extends Component {
     render() {
-        const features = Object.keys(this.props.features).map((feature, idx) => {
-            const featureHash = feature + '-' + idx;
-            const options = this.props.features[feature].map(item => {
-            // const itemHash = slugify(JSON.stringify(item));
-            //NOTE JSON.stringify would introduce nested double quote marks, so don't use that as an id attribute value
-            const itemHash = slugify(`item-${item.name}-${idx}`);
-            return (
-                <div key={itemHash} className="feature__item">
-                <input
-                    type="radio"
-                    id={itemHash}
-                    className="feature__option"
-                    name={slugify(feature)}
-                    checked={item.name === this.props.state.selected[feature].name}
-                    onChange={(e) => this.props.updateFeature(feature, item)}
-                />
-                <label htmlFor={itemHash} className="feature__label">
-                    {item.name} ({this.props.USCurrencyFormat.format(item.cost)})
-                </label>
-                </div>
-            );
-            });
-
-            return (
-            <fieldset className="feature" key={featureHash}>
-                <legend className="feature__name">
-                <h3>{feature}</h3>
-                </legend>
-                {options}
-            </fieldset>
-            );
-        });
-
         return (
             <form className="main__form">
             <h2>Customize your laptop</h2>
-            {features}
+            <Choices 
+                features={this.props.features}
+                USCurrencyFormat={this.props.USCurrencyFormat}
+                state={this.props.state}
+                updateFeature={this.props.updateFeature}
+            />
           </form>
-        )
+        );
     }
 }
 
