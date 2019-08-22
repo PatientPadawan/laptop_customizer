@@ -11,7 +11,9 @@ class Custom extends Component {
         const features = Object.keys(this.props.features).map((feature, idx) => {
             const featureHash = feature + '-' + idx;
             const options = this.props.features[feature].map(item => {
-            const itemHash = slugify(JSON.stringify(item));
+            // const itemHash = slugify(JSON.stringify(item));
+            //NOTE JSON.stringify would introduce nested double quote marks, so don't use that as an id attribute value
+            const itemHash = slugify(`item-${item.name}-${idx}`);
             return (
                 <div key={itemHash} className="feature__item">
                 <input
